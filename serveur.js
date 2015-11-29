@@ -20,9 +20,10 @@ var app = express();
 		res.setHeader('200', {"Content-type": "text/plain"} );
 		res.end("Bienvenu dans le sous-sol");
 	})
-	.get('/chambre/:numeroChambre', function(req, res) {
-		res.setHeader('200', {"Content-type": "text/plain"} );
-		res.render("chambre.ejs", {"numeroChambre": req.params.numeroChambre});
+	.get('/chambre/:numeroChambre/:nombrePersonnes', function(req, res) {
+		var noms = ["Nadjib", "Franck", "Hugo", "Laurene"];
+		res.setHeader('200', {"Content-type": "text/plain"});
+		res.render("chambre.ejs", {"numeroChambre": req.params.numeroChambre, "nombrePersonnes": req.params.nombrePersonnes,"noms": noms});	
 	})
 	.use(function(req, res, next) {
 		res.setHeader('404', 'text/plain');

@@ -1,5 +1,21 @@
 <h1> Bienvenue dans la chambre de l'hotel </h1>
 
+
+
 <p> 
 	Le numéro de cette chambre est le <%= numeroChambre %> 
 </p>
+
+<p>
+	Dans cette chambre il y a :
+	<ul>
+		<% for(var i = 1; i <= nombrePersonnes; i++) { %>
+			<li>
+				<%=i%>
+			</li>
+		<% } %>
+	</ul>
+	personnes
+</p>
+
+<p> Aujourdhui, celui qui fera le ménage est <%= noms[Math.round(Math.random() * (noms.length - 1))] %>
