@@ -12,7 +12,11 @@
 			<ul>
 				<% orderslist.forEach(function(order, index) { %>
 					<li> 
-						<%= order %>
+						Commande: <%= order.name %><br/>
+						Numero: <%= order.orderNumber %><br/>
+						Double: <%= order.double %><br/>
+						Livraison prévue à: <%= order.deliveryHour %> <br/>
+						Etat: <%= order.status %> <br/>
 						<a href="/orderslist/finish/<%= index %>"> (Mark as finished) </a>
 					</li>
 				<% });%>
