@@ -10,6 +10,7 @@ var app = express();
 
 
 // var server = http.createServer(function(req, res) {
+// });
 	
 	app.get('/', function(req, res) {
 		res.setHeader('200', {"Content-type": "text/plain"} );
@@ -21,12 +22,11 @@ var app = express();
 	})
 	.get('/chambre/:numeroChambre', function(req, res) {
 		res.setHeader('200', {"Content-type": "text/plain"} );
-		res.end("Bienvenu dans la chambre numero: "+req.params.numeroChambre);
+		res.render("chambre.ejs", {"numeroChambre": req.params.numeroChambre});
 	})
 	.use(function(req, res, next) {
 		res.setHeader('404', 'text/plain');
 		res.send(404, "Pièce non trouvée");
 	});
-// });
 
 app.listen('8080');

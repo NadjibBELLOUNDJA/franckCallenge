@@ -2,6 +2,8 @@
 	"name": "franckChallenge",
 	"version" : "0.1.0",
 	"dependencies": {
-		"markdown": "~0.5"
+		"markdown": "~0.5",
+		"ejs" : "~2.3",
+		"express": "~4.13"
 	}
 }
