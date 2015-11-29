@@ -1,10 +1,14 @@
 {
-  "name": "franckChallenge",
+  "name": "ma-to-do-list",
   "version": "0.1.0",
   "dependencies": {
     "ejs": "~2.3",
     "express": "~4.13",
     "markdown": "~0.5",
-    "serve-favicon": "^2.3.0"
-  }
+    "serve-favicon": "^2.3.0",
+    "cookie-session": "~1.2.0",
+    "body-parser": "~1.14.1"
+  },
+  "author": "Nadjib",
+  "description": "to do list basique"
 }
