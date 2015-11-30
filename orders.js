@@ -25,7 +25,7 @@ connection.connect();
 app.use(session({secret: 'secret'}))
 .use(function(req, res, next) {
 	if (typeof(req.session.orderslist) !== 'undefined')
-		req.session.orderslist = [sushiOrder, soupOrder, saladOrder];
+		req.session.orderslist = [];
 	next();
 })
 

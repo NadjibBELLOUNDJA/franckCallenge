@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="ordersListApp">
 	<head>
 		<meta charset="utf-8">
 		<title> Orders List </title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script>
+			angular.module('ordersListApp', [])
+			.controller('OrdersListController', function() {
+				var ordersList = this;
+				ordersList.orders = [
+					{ name: "sushiOrder"},
+					{ name: "saladOrder"},
+					{ name: "soupOrder"},
+				];
+			});
+		</script>
 	</head>
 	<body>
 		<h1> Orders List </h1>
 
-		<div>
+		<div ng-controller="OrdersListController as ordersList">
 			<ul>
-				<% orderslist.forEach(function(order, index) { %>
-					<li> 
-						Commande: <%= order.name %><br/>
-						Numero: <%= order.orderNumber %><br/>
-						Double: <%= order.double %><br/>
-						Livraison prévue à: <%= order.deliveryHour %> <br/>
-						Etat: <%= order.status %> <br/>
-						<a href="/orderslist/finish/<%= index %>"> (Mark as finished) </a>
-					</li>
-				<% });%>
+				<li ng-repeat="order in ordersList.orders">
+					{{ order.name }}
+				</li>
 			</ul>
 		</div>
 	</body>
+
 </html>

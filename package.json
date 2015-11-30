@@ -4,8 +4,6 @@
   "dependencies": {
     "ejs": "~2.3",
     "express": "~4.13",
-    "markdown": "~0.5",
-    "serve-favicon": "^2.3.0",
     "cookie-session": "~1.2.0",
     "body-parser": "~1.14.1",
     "mysql": "~2.9.0"

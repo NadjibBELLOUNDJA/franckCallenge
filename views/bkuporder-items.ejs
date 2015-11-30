@@ -7,17 +7,11 @@
 	</head>
 	<body ng-controller="OrderItemsController">
 		<h1> Order Items for Order: <%= order.name %></h1>
-		<ul>	
-			<li ng-repeat="order in orderItems"> order </li>
+		<ul>
+			<% order.items.forEach(function(item, index) { %>
+				<li> <%= item %> </li>
+			<% }); %>
 		</ul>
 	</body>
-
-	<script>
-		function OrderItemsController($scope) {
-			$scope.orderItems = [
-				{}
-			];
-		}
-	</script>
 
 </html>
