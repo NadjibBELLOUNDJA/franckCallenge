@@ -1,17 +1,25 @@
 var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'root',
+  database: 'franck_challenge'
+});
 
 var urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 var app = express();
 
-function Order(name, deliveryHour, orderNumber, status)
+function Order(name, deliveryHour, orderNumber, status, items)
 {
 	this.name = name;
 	this.deliveryHour = deliveryHour;
 	this.orderNumber = orderNumber;
 	this.status = status;
+	this.items = items;
 }
 
 Object.defineProperties(Order.prototype, {
@@ -19,14 +27,17 @@ Object.defineProperties(Order.prototype, {
 	"finished" : {set: function(x) { this.status = x; }}
 });
 
-var sushiOrder = new Order("sushiOrder", "16h", 0, "pending");
-var soupOrder = new Order("soupOrder", "17h", 1, "pending");
-var saladOrder = new Order("saladOrder", "18h", 2, "pending");
+connection.connect();
 
-// Object.defineProperties(sushiOrder, {
-// 	"double": { get: function() { return "2"; }},
-// 	"finished" : {set: function(x) { this.status = x; }}
-// });
+
+var sushiOrderItems = ["fish", "soy sauce", "rice", "avocado"];
+var sushiOrder = new Order("sushiOrder", "16h", 0, "pending", sushiOrderItems);
+
+var soupOrderItems = ["tomatoes", "bread", "tofu", "salt"];
+var soupOrder = new Order("soupOrder", "17h", 1, "pending", soupOrderItems);
+
+var saladOrderItems = ["lettuce", "olive oil", "mais", "tuna"];
+var saladOrder = new Order("saladOrder", "18h", 2, "pending", saladOrderItems);
 
 
 app.use(session({secret: 'secret'}))
@@ -37,15 +48,20 @@ app.use(session({secret: 'secret'}))
 })
 
 app.get('/orderslist', function(req, res) {
-	res.setHeader('200', {"Content-type": "text/html"});
-	res.render("orders.ejs", {"orderslist": req.session.orderslist });
+	connection.query('SELECT * FROM orders', function(err, rows, fields) {
+		res.setHeader('200', {"Content-type": "text/html"});
+		res.render("orders-list.ejs", {"orderslist": rows });
+	});
 })
+
 .get('/orderslist/finish/:id', function(req, res) {
 	if (req.params.id != '')
-		req.session.orderslist[req.params.id].finished = "finished";
-		// req.params.id.finished;
-		// req.session.orderslist.splice(req.params.id, 1);
-	res.redirect('/orderslist');
+	{
+		connection.query("UPDATE orders SET status = ? WHERE id = ? ", ["pending", req.params.id], function(err, rows, fields) {
+			console.log(req.params.id);
+			res.redirect('/orderslist');
+		});
+	}
 })
 
 .use(function(req, res) {
