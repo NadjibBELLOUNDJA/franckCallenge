@@ -1,6 +1,5 @@
 var express = require('express');
 var session = require('cookie-session');
-var bodyParser = require('body-parser');
 var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'localhost',
@@ -8,8 +7,6 @@ var connection = mysql.createConnection({
   password : 'root',
   database: 'franck_challenge'
 });
-
-var urlEncodedParser = bodyParser.urlencoded({extended: false});
 
 var app = express();
 
@@ -22,22 +19,7 @@ function Order(name, deliveryHour, orderNumber, status, items)
 	this.items = items;
 }
 
-Object.defineProperties(Order.prototype, {
-	"double": { get: function() { return "2"; }},
-	"finished" : {set: function(x) { this.status = x; }}
-});
-
 connection.connect();
-
-
-var sushiOrderItems = ["fish", "soy sauce", "rice", "avocado"];
-var sushiOrder = new Order("sushiOrder", "16h", 0, "pending", sushiOrderItems);
-
-var soupOrderItems = ["tomatoes", "bread", "tofu", "salt"];
-var soupOrder = new Order("soupOrder", "17h", 1, "pending", soupOrderItems);
-
-var saladOrderItems = ["lettuce", "olive oil", "mais", "tuna"];
-var saladOrder = new Order("saladOrder", "18h", 2, "pending", saladOrderItems);
 
 
 app.use(session({secret: 'secret'}))
