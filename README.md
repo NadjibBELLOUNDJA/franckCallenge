@@ -1,11 +1,9 @@
 # franckCallenge
 
-1. #Database Structure
-
+1. **Database Structure** 
 The database is a mysql type database.
 There are 5 different tables
-  1. **orders**,
-with the following columns:
+  1. **orders**, with the following columns:
 	id: PRIMARY KEY
 	deliveryHour: DATETIME type which indicates the delivery hour of the order
 	status: BOOLEAN type, equal to 0 ('pending') or 1 ('delivered')
