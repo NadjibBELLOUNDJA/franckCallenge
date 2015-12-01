@@ -32,7 +32,6 @@ There are 5 different tables
 2. **Main Js File**
 
 The main js file is orders.js.
-
 3. **How to**
 
   1. Create a database named franck_challenge. Or any other name but then change the database name in orders.js.
