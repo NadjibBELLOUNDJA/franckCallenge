@@ -4,7 +4,6 @@
 
 The database is a mysql type database.
 There are 5 different tables
-
   1. **orders**,
 with the following columns:
 	id: PRIMARY KEY
