@@ -29,11 +29,11 @@ There are 5 different tables
 	2. menuId: FOREIGN KEY referencing menus.id
 	3. itemId: FOREIGN KEY referencing items.id
 
-2. #Main Js File
+2. **Main Js File**
 
 The main js file is orders.js.
 
-3. #How to
+3. **How to**
 
   1. Create a database named franck_challenge. Or any other name but then change the database name in orders.js.
 
