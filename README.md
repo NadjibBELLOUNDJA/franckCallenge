@@ -1,8 +1,7 @@
 # franckCallenge
 
 1. **Database Structure** 
-
-The database is a mysql type database.
+    The database is a mysql type database.
 There are 5 different tables
   1. **orders**, with the following columns:
     1. id: PRIMARY KEY
