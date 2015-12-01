@@ -1,18 +1,18 @@
 # franckCallenge
 
-1. **Database Structure** <br/>
-The database is a mysql type database.
-There are 5 different tables
+1. **Database Structure** 
+<br/><br/>The database is a mysql type database.
+There are 5 different tables <br/>
   1. **orders**, with the following columns:
     1. id: PRIMARY KEY
 	2. deliveryHour: DATETIME type which indicates the delivery hour of the order
 	3. status: BOOLEAN type, equal to 0 ('pending') or 1 ('delivered')
- Each order may contain several menus.
+<br/>Each order may contain several menus.
 
   2. **menus**, with the following colums
 	1. id: PRIMARY KEY
 	2. name: each menu has a different name (sushiMenu, soupMenu etc.)
- Each menu may contain several items
+<br/>Each menu may contain several items
 
   3. **items**, with the following columns:
 	1. id: PRIMARY KEY
@@ -22,7 +22,7 @@ There are 5 different tables
 	1. id: PRIMARY KEY
 	2. orderId: FOREIGN KEY referencing orders.id
 	3. menuId: FOREIGN KEY referencing menus.id
- As each order may have several menus, this table is the joint table between orders and menus
+<br/>As each order may have several menus, this table is the joint table between orders and menus
 
   5. **menu_item**, with the following keys
 	1. id: PRIMARY KEY
@@ -30,7 +30,7 @@ There are 5 different tables
 	3. itemId: FOREIGN KEY referencing items.id
 
 2. **Main Js File**
-The main js file is orders.js.
+<br/><br/>The main js file is orders.js.
 
 3. **How to**
 
