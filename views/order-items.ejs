@@ -10,7 +10,10 @@
 			.controller('MenuItemsController', function() {
 				this.items = [
 				<% menuItems.forEach(function(item, index) { %>
-					{id: "<%= item.id %>", name: "<%= item.name %>"},
+					{
+						id: "<%= item.id %>",
+						name: "<%= item.name %>",
+					},
 				<% }); %>
 				];
 			});
@@ -18,8 +21,8 @@
 	</head>
 	<body ng-controller="MenuItemsController as menuItems">
 		<h1> Order Items for Order: </h1>
-		<ul>	
-			<li ng-repeat="item in menuItems.items">  {{ item.name }}</li>
+		<ul>
+			<li ng-repeat="item in menuItems.items"> {{ item.name }}</li>
 		</ul>
 	</body>
 

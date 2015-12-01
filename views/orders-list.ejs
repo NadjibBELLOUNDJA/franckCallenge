@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 
-<html ng-app="menusListApp">
+<html ng-app="ordersListApp">
 	<head>
 		<meta charset="utf-8">
 		<title> Orders List </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<script>
-			angular.module('menusListApp', [])
-			.controller('MenusListController', function() {
-				var menusList = this;
-				menusList.menus = [
-				<% menusList.forEach(function(order, index) { %>
+			angular.module('ordersListApp', [])
+			.controller('OrdersListController', function() {
+				var ordersList = this;
+				ordersList.orders = [
+				<% ordersList.forEach(function(order, index) { %>
 					{	
 						id: "<%= order.id %>",
-						name: "<%= order.name %>",
 						deliveryHour: "<%= order.deliveryHour %>",
-						status: "<%= order.status %>",
+						status: "<%= order.status ? 'delivered':'pending' %>",
+						menuName: "<%= order.name %>"
 					},
 				<% }); %>
 				];
@@ -25,13 +25,15 @@
 	<body>
 		<h1> Orders List </h1>
 
-		<div ng-controller="MenusListController as menusList">
+		<div ng-controller="OrdersListController as ordersList">
 			<ul>
-				<li ng-repeat="order in menusList.menus">
-					Order n {{ order.id }} : {{ order.name }} <br/>
+				<li ng-repeat="order in ordersList.orders">
+					Order n {{ order.id }} <br/>
+					Menu: {{ order.menuName }} <br/>
 					Delivery Hour: {{ order.deliveryHour }} <br/>
 					Statut: {{ order.status }} <br/>
-					<a href="/orderslist/finish/{{ order.id }}"> Mark as delivered </a>
+					<a href="/orderslist/finish/{{ order.id }}"> Mark as delivered </a> <br/>
+					<a href="orderitems/{{ order.id }}"> View Items </a>
 				</li>
 			</ul>
 		</div>

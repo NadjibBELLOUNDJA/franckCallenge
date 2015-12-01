@@ -30,7 +30,7 @@ app.use(session({secret: 'secret'}))
 })
 
 app.get('/orderslist', function(req, res) {
-	connection.query('SELECT * FROM menus ', function(err, ordersList, fields) {
+	connection.query('SELECT * FROM orders LEFT JOIN order_menu ON orders.id = order_menu.orderId LEFT JOIN menus ON order_menu.menuId=menus.id', function(err, ordersList, fields) {
 		res.setHeader('200', {"Content-type": "text/html"});
 		res.render("orders-list.ejs", {"ordersList": ordersList });
 	});
@@ -39,7 +39,7 @@ app.get('/orderslist', function(req, res) {
 .get('/orderslist/finish/:id', function(req, res) {
 	if (req.params.id != '')
 	{
-		connection.query("UPDATE menus SET status = ? WHERE id = ? ", ["finished", req.params.id], function(err, rows, fields) {
+		connection.query("UPDATE orders SET status = 1 WHERE id = ? ", [req.params.id], function(err, rows, fields) {
 			res.redirect('/orderslist');
 		});
 	}
@@ -48,7 +48,7 @@ app.get('/orderslist', function(req, res) {
 .get('/orderitems/:menuId', function(req, res) {
 	if (req.params.menuId != '')
 	{
-		connection.query("SELECT name FROM items LEFT JOIN menu_item ON items.id=menu_item.itemId WHERE menu_item.menuId = ?", [req.params.menuId],  function(err, menuItems, fields) {
+		connection.query("SELECT items.name, menus.name FROM orders INNER JOIN order_menu ON orders.id=order_menu.orderId INNER JOIN menus ON order_menu.menuId=menus.id INNER JOIN menu_item ON menus.id=menu_item.menuId INNER JOIN items ON menu_item.itemId=items.id WHERE orders.id = ?", [req.params.menuId],  function(err, menuItems, fields) {
 			res.render('order-items.ejs', {"menuItems": menuItems});
 		});
 	}
