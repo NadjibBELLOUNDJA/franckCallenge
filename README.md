@@ -1,45 +1,55 @@
 # franckCallenge
 
-#Database Structure
+1. #Database Structure
 
 The database is a mysql type database.
 There are 5 different tables
 
-1) *orders*, with the following columns:
+  1. **orders**, 
+
+with the following columns:
 	id: PRIMARY KEY
 	deliveryHour: DATETIME type which indicates the delivery hour of the order
 	status: BOOLEAN type, equal to 0 ('pending') or 1 ('delivered')
 
 Each order may contain several menus.
 
-2) menus, with the following colums
+  2. **menus**, 
+
+with the following colums
 	id: PRIMARY KEY
 	name: each menu has a different name (sushiMenu, soupMenu etc.)
 
 Each menu may contain several items
 
-3) items, with the following columns:
+  3. **items**, 
+
+with the following columns:
 	id: PRIMARY KEY
 	name: name of the item (fish, tomato, rice etc.)
 
-4) order_menu, with the following keys
+  4. **order_menu**, 
+
+with the following keys
 	id: PRIMARY KEY
 	orderId: FOREIGN KEY referencing orders.id
 	menuId: FOREIGN KEY referencing menus.id
 
 As each order may have several menus, this table is the joint table between orders and menus
 
-5) menu_item, with the following keys
+  5. **menu_item**, 
+
+with the following keys
 	id: PRIMARY KEY
 	menuId: FOREIGN KEY referencing menus.id
 	itemId: FOREIGN KEY referencing items.id
 
 
-#Main Js File
+2. #Main Js File
 
 The main js file is orders.js.
 
-#How to
+3. #How to
 
 Create a database named franck_challenge. Or any other name but then change the database name in orders.js.
 
