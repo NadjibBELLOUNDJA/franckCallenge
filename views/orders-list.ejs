@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 
-<html ng-app="ordersListApp">
+<html ng-app="menusListApp">
 	<head>
 		<meta charset="utf-8">
 		<title> Orders List </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<script>
-			angular.module('ordersListApp', [])
-			.controller('OrdersListController', function() {
-				var ordersList = this;
-				ordersList.orders = [
-					{ name: "sushiOrder"},
-					{ name: "saladOrder"},
-					{ name: "soupOrder"},
+			angular.module('menusListApp', [])
+			.controller('MenusListController', function() {
+				var menusList = this;
+				menusList.menus = [
+				<% menusList.forEach(function(order, index) { %>
+					{	
+						id: "<%= order.id %>",
+						name: "<%= order.name %>",
+						deliveryHour: "<%= order.deliveryHour %>",
+						status: "<%= order.status %>",
+					},
+				<% }); %>
 				];
 			});
 		</script>
@@ -20,10 +25,13 @@
 	<body>
 		<h1> Orders List </h1>
 
-		<div ng-controller="OrdersListController as ordersList">
+		<div ng-controller="MenusListController as menusList">
 			<ul>
-				<li ng-repeat="order in ordersList.orders">
-					{{ order.name }}
+				<li ng-repeat="order in menusList.menus">
+					Order n {{ order.id }} : {{ order.name }} <br/>
+					Delivery Hour: {{ order.deliveryHour }} <br/>
+					Statut: {{ order.status }} <br/>
+					<a href="/orderslist/finish/{{ order.id }}"> Mark as delivered </a>
 				</li>
 			</ul>
 		</div>

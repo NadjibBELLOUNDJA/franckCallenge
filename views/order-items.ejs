@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="menuItemsApp">
 	<head>
 		<meta charset="utf-8">
-		<title> Order Items </title>
+		<title> Menu Items </title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+		<script>
+			angular.module('menuItemsApp', [])
+			.controller('MenuItemsController', function() {
+				this.items = [
+				<% menuItems.forEach(function(item, index) { %>
+					{id: "<%= item.id %>", name: "<%= item.name %>"},
+				<% }); %>
+				];
+			});
+		</script>
 	</head>
-	<body ng-controller="OrderItemsController">
-		<h1> Order Items for Order: <%= order.name %></h1>
+	<body ng-controller="MenuItemsController as menuItems">
+		<h1> Order Items for Order: </h1>
 		<ul>	
-			<li ng-repeat="order in orderItems"> order </li>
+			<li ng-repeat="item in menuItems.items">  {{ item.name }}</li>
 		</ul>
 	</body>
 
 	<script>
-		function OrderItemsController($scope) {
-			$scope.orderItems = [
-				{}
-			];
-		}
 	</script>
 
 </html>

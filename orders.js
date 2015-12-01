@@ -30,18 +30,26 @@ app.use(session({secret: 'secret'}))
 })
 
 app.get('/orderslist', function(req, res) {
-	connection.query('SELECT * FROM orders', function(err, rows, fields) {
+	connection.query('SELECT * FROM menus ', function(err, ordersList, fields) {
 		res.setHeader('200', {"Content-type": "text/html"});
-		res.render("orders-list.ejs", {"orderslist": rows });
+		res.render("orders-list.ejs", {"ordersList": ordersList });
 	});
 })
 
 .get('/orderslist/finish/:id', function(req, res) {
 	if (req.params.id != '')
 	{
-		connection.query("UPDATE orders SET status = ? WHERE id = ? ", ["pending", req.params.id], function(err, rows, fields) {
-			console.log(req.params.id);
+		connection.query("UPDATE menus SET status = ? WHERE id = ? ", ["finished", req.params.id], function(err, rows, fields) {
 			res.redirect('/orderslist');
+		});
+	}
+})
+
+.get('/orderitems/:menuId', function(req, res) {
+	if (req.params.menuId != '')
+	{
+		connection.query("SELECT name FROM items LEFT JOIN menu_item ON items.id=menu_item.itemId WHERE menu_item.menuId = ?", [req.params.menuId],  function(err, menuItems, fields) {
+			res.render('order-items.ejs', {"menuItems": menuItems});
 		});
 	}
 })
