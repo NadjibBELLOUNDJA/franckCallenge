@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 
-<html ng-app="menuItemsApp">
+<html ng-app="orderItemsApp">
 	<head>
 		<meta charset="utf-8">
-		<title> Menu Items </title>
+		<title> Order Menus and Items </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 		<script>
-			angular.module('menuItemsApp', [])
-			.controller('MenuItemsController', function() {
-				this.items = [
-				<% menuItems.forEach(function(item, index) { %>
+			angular.module('orderItemsApp', [])
+			.controller('OrderItemsController', function() {
+				this.menus = {};
+				var menuKey = '';
+				<% orderItems.forEach(function(item, index) { %>
+					if (menuKey !== "<%= item.menuName %>")
 					{
-						id: "<%= item.id %>",
-						name: "<%= item.name %>",
-					},
+						menuKey = "<%= item.menuName %>";
+						this.menus[menuKey] = [];							
+					}
+					this.menus[menuKey].push("<%= item.itemName %>");
 				<% }); %>
-				];
 			});
 		</script>
 	</head>
-	<body ng-controller="MenuItemsController as menuItems">
+	<body ng-controller="OrderItemsController as orderItems">
 		<h1> Order Items for Order: </h1>
-		<ul>
-			<li ng-repeat="item in menuItems.items"> {{ item.name }}</li>
+		<ul ng-repeat="(menuName, items) in orderItems.menus"> 
+			<h5> {{ menuName }} </h5>
+			<li ng-repeat="item in items"> {{ item }} </li>
 		</ul>
 	</body>
 

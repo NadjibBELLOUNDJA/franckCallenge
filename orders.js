@@ -48,8 +48,8 @@ app.get('/orderslist', function(req, res) {
 .get('/orderitems/:menuId', function(req, res) {
 	if (req.params.menuId != '')
 	{
-		connection.query("SELECT items.name, menus.name FROM orders INNER JOIN order_menu ON orders.id=order_menu.orderId INNER JOIN menus ON order_menu.menuId=menus.id INNER JOIN menu_item ON menus.id=menu_item.menuId INNER JOIN items ON menu_item.itemId=items.id WHERE orders.id = ?", [req.params.menuId],  function(err, menuItems, fields) {
-			res.render('order-items.ejs', {"menuItems": menuItems});
+		connection.query("SELECT items.name as itemName, menus.name as menuName FROM orders INNER JOIN order_menu ON orders.id=order_menu.orderId INNER JOIN menus ON order_menu.menuId=menus.id INNER JOIN menu_item ON menus.id=menu_item.menuId INNER JOIN items ON menu_item.itemId=items.id WHERE orders.id = 1", [req.params.menuId],  function(err, orderItems, fields) {
+			res.render('order-items.ejs', {"orderItems": orderItems});
 		});
 	}
 })
