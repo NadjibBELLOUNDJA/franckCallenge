@@ -1,12 +1,9 @@
 # franckCallenge
 
 1. #Database Structure
-
 The database is a mysql type database.
 There are 5 different tables
-
-  1. **orders**, 
-
+  1. **orders**,
 with the following columns:
 	id: PRIMARY KEY
 	deliveryHour: DATETIME type which indicates the delivery hour of the order
