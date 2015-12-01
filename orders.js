@@ -15,7 +15,7 @@ connection.connect();
 app.use(session({secret: 'secret'}))
 .use('/js', express.static(__dirname + '/js'))
 .get('/orderslist', function(req, res) {
-	connection.query('SELECT * FROM orders LEFT JOIN order_menu ON orders.id = order_menu.orderId LEFT JOIN menus ON order_menu.menuId=menus.id', function(err, ordersList, fields) {
+	connection.query('SELECT orders.id, orders.deliveryHour, orders.status, menus.name as menuName FROM orders LEFT JOIN order_menu ON orders.id = order_menu.orderId LEFT JOIN menus ON order_menu.menuId=menus.id', function(err, ordersList, fields) {
 		res.setHeader('200', {"Content-type": "text/html"});
 		res.render("orders-list.ejs", {"ordersList": ordersList });
 	});
