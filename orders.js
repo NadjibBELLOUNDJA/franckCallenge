@@ -10,26 +10,11 @@ var connection = mysql.createConnection({
 
 var app = express();
 
-function Order(name, deliveryHour, orderNumber, status, items)
-{
-	this.name = name;
-	this.deliveryHour = deliveryHour;
-	this.orderNumber = orderNumber;
-	this.status = status;
-	this.items = items;
-}
-
 connection.connect();
 
-
 app.use(session({secret: 'secret'}))
-.use(function(req, res, next) {
-	if (typeof(req.session.orderslist) !== 'undefined')
-		req.session.orderslist = [];
-	next();
-})
-
-app.get('/orderslist', function(req, res) {
+.use('/js', express.static(__dirname + '/js'))
+.get('/orderslist', function(req, res) {
 	connection.query('SELECT * FROM orders LEFT JOIN order_menu ON orders.id = order_menu.orderId LEFT JOIN menus ON order_menu.menuId=menus.id', function(err, ordersList, fields) {
 		res.setHeader('200', {"Content-type": "text/html"});
 		res.render("orders-list.ejs", {"ordersList": ordersList });
@@ -45,10 +30,10 @@ app.get('/orderslist', function(req, res) {
 	}
 })
 
-.get('/orderitems/:menuId', function(req, res) {
-	if (req.params.menuId != '')
+.get('/orderitems/:orderId', function(req, res) {
+	if (req.params.orderId != '')
 	{
-		connection.query("SELECT items.name as itemName, menus.name as menuName FROM orders INNER JOIN order_menu ON orders.id=order_menu.orderId INNER JOIN menus ON order_menu.menuId=menus.id INNER JOIN menu_item ON menus.id=menu_item.menuId INNER JOIN items ON menu_item.itemId=items.id WHERE orders.id = 1", [req.params.menuId],  function(err, orderItems, fields) {
+		connection.query("SELECT items.name as itemName, menus.name as menuName FROM orders INNER JOIN order_menu ON orders.id=order_menu.orderId INNER JOIN menus ON order_menu.menuId=menus.id INNER JOIN menu_item ON menus.id=menu_item.menuId INNER JOIN items ON menu_item.itemId=items.id WHERE orders.id = ?", [req.params.orderId],  function(err, orderItems, fields) {
 			res.render('order-items.ejs', {"orderItems": orderItems});
 		});
 	}
